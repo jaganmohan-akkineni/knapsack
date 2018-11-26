@@ -12,18 +12,21 @@ def main():
 
 # BruteForce:
 def knapsack_bf(weights, values, W):
+    if len(weights) != len(values):
+        return [];
+    S =[]
+    #set up S
+    for x in range(len(weights)):
+        S.append(-1);
 
-        S =[]
-        #set up S
-        for x in range(len(weights)):
-            S.append(-1);
+    print("====> main caller knapsack_b: S={} Weights={}, Values={}".format(S,weights,values))
 
-        print("====> main caller knapsack_b: S={} Weights={}, Values={}".format(S,weights,values))
+    result = doBruteForce(weights, values,W, S);
+    #result is a tuple of (selection array, totalValue, totalWeight)
+    print("result: ", result)
 
-        result = doBruteForce(weights, values,W, S);
-        #TODO: result is a tuple of (selection array, totalValue, totalWeight)
-        # take out the selection array to return items
-        print("result: ", result)
+    #TODO: extract the selection array to return items
+
 
 
 # do brute force:
