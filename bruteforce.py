@@ -1,13 +1,12 @@
 
 import time
-import math
 
 # BruteForce:
 def Knapsack_bf(weights, values, W):
     if (len(weights)!=len(values)) or len(weights)==0 or len(values)==0 or W==0:
         print("Invalid weights array or values array or invalid length")
         return [];
-    print("\nBruteForce, weights={}, values={}, W={}".format(weights,values,W))
+
     S =[]
     #set up S
     for x in range(len(weights)):
@@ -15,10 +14,10 @@ def Knapsack_bf(weights, values, W):
 
     start = time.time() # in sec
     result = doBruteForce(weights, values,W, S);
-    stop = time.time()
+    end = time.time()
     #result is a tuple of (selection array, totalValue, totalWeight)
-    print("Result:{}",format(result[0]))
-    print(stop-start)
+    print(result)
+    print("\n BruteForce: Max values={}, items={}, duration(seconds)={}".format(result[1], result[0],(end-start)*1000))
 
     return result[0];
 
