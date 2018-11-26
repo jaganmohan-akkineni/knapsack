@@ -27,6 +27,7 @@ def doBruteForce(weights, values,W, S):
     n = len(weights);
     maxV = maxW = 0;
     prevChoice = []
+
     # run over 2^n possibilities:
     for i in range (2**n):
         totalW = 0;
@@ -41,7 +42,7 @@ def doBruteForce(weights, values,W, S):
 
         # Start calculation weights and value, look into S:
         for k in range (n):
-            # adding up W and V for any 1's in S:
+            # adding up W and V for any 1's in S for this combination
             if(S[k] == 1):
                 totalW = totalW + weights[k]
                 totalV = totalV + values[k]
