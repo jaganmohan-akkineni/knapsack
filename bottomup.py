@@ -13,6 +13,7 @@ def Knapsack_bottomup(weights, values, W):
     S = doBottomUp(weights,values,W,S)
     result = backtracking(S, weights)
     end = time.time()
+
     print("\n Bottom-up: Max values={}, items={}, duration(seconds)={}".format(S[n][W], result,(end-start)*1000))
     return result;
 #####################################
@@ -28,7 +29,7 @@ def doBottomUp(weights, values, W, S):
     for i in range(n):
         for j in range(W+1):
             if j < wArray[i]:
-                S[i][j] = S[i-1][j] # item @ith cant fit, use previous
+                S[i][j] = S[i-1][j] # i not selected, fill up the cell with prev
             else:
                 S[i][j] = max(S[i-1][j], S[i-1][j-wArray[i]] + vArray[i])
 
