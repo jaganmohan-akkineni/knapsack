@@ -1,29 +1,24 @@
 
-import random;
-
-def main():
-    print("Hello, world!")
-    Weights = [4,5,9,1,2,3]
-    Values = [10,20,15,10,20,15]
-    W = 10
-
-
-    knapsack_bf(Weights, Values, W);
+import time
+import math
 
 # BruteForce:
-def knapsack_bf(weights, values, W):
+def Knapsack_bf(weights, values, W):
     if (len(weights)!=len(values)) or len(weights)==0 or len(values)==0 or W==0:
+        print("Invalid weights array or values array or invalid length")
         return [];
+    print("\nBruteForce, weights={}, values={}, W={}".format(weights,values,W))
     S =[]
     #set up S
     for x in range(len(weights)):
         S.append(-1);
 
-    print("====> main caller knapsack_b: S={} Weights={}, Values={}".format(S,weights,values))
-
+    start = time.time() # in sec
     result = doBruteForce(weights, values,W, S);
+    stop = time.time()
     #result is a tuple of (selection array, totalValue, totalWeight)
-    print("result: ", result[0])
+    print("Result:{}",format(result[0]))
+    print(stop-start)
 
     return result[0];
 
@@ -42,7 +37,6 @@ def doBruteForce(weights, values,W, S):
         while(S[j] !=0 and j >= 0):
             S[j] = 0
             j = j - 1;
-
         S[j] = 1;
 
         # Start calculation weights and value, look into S:
@@ -59,8 +53,3 @@ def doBruteForce(weights, values,W, S):
             best = S.copy();
 
     return (best,maxV,maxW)
-
-
-
-if __name__ == '__main__':
-    main()
