@@ -2,7 +2,7 @@
 import time
 
 # BruteForce:
-def Knapsack_bf(weights, values, W):
+def knapsack_brute_force(weights, values, W):
     if (len(weights)!=len(values)) or len(weights)==0 or len(values)==0 or W==0:
         print("Invalid weights array or values array or invalid length")
         return [];

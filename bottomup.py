@@ -1,6 +1,6 @@
 import time
 
-def Knapsack_bottomup(weights, values, W):
+def knapsack_bottom_up_dp(weights, values, W):
     if (len(weights)!=len(values)) or len(weights)==0 or len(values)==0 or W==0:
         print("Invalid weights array or values array or invalid length")
         return [];
@@ -14,7 +14,7 @@ def Knapsack_bottomup(weights, values, W):
     result = backtracking(S, weights)
     end = time.time()
 
-    print("\n Bottom-up: Max values={}, items={}, duration(seconds)={}".format(S[n][W], result,(end-start)*1000))
+    print("\n Bottom-up : Max values={}, items={}, duration(seconds)={}".format(S[n][W], result,(end-start)*1000))
     return result;
 #####################################
 # Calculating the 2d matrix S for max value
@@ -38,21 +38,25 @@ def doBottomUp(weights, values, W, S):
 ###############################
 # Backtracking from optimal array S in order to get
 # the index of which items including in optimal result
+# S: S is list of arrays of computed values
+# weights: original input weights array.
 ###############################
 def backtracking(S, weights):
-    i = len(S)-1 # how many row in S
-    j = len(S[0])-1 #how many col in S
+    row = len(S)-1 # number of row should be len of S
+    col = len(S[0])-1 # number of column is how many items in one of array in S
     R = []
+
     # set up empty array R to get index of items
-    for x in range (len(weights)):
+    for i in range (len(weights)):
         R.append(0)
 
-    while (j > 0):
-        if S[i][j] != S[i-1][j]:
-            R[i-1] = 1;
-            i = i-1; # move up 1 row
-            j = j - weights[i] # jump to column j-weights[i]
+    # starting from bottom right corner: S[row][col]
+    while (col > 0 and row >0):
+        if S[row][col] != S[row-1][col]:
+            R[row-1] = 1;
+            row = row-1; # move up 1 row
+            col = col - weights[row] # jump to column col-weights[row]
         else:
-            j=j-1 #move left one
+            row=row-1 #item not selected, move to next item
 
     return R;

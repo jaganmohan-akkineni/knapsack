@@ -2,37 +2,37 @@ import random
 import bruteforce as bruteforce;
 import bottomup as bottom_up;
 import topdown as topdown
-
+import test as test
 
 def main():
-    # Weights = [4,5,9,1,2,3] #generateData(5, 1,10)
-    # Values = [10,20,15,10,20,15] #generateData(5, 10, 100)
 
-    Weights = [4,5,5] #generateData(5, 1,10)
-    Values = [10,20,15] #generateData(5, 10, 100)
-    W = 10
+    # Test method 1: generate random data:
+    # Weights =  generateData(5, 1,10)
+    # Values = generateData(5, 10, 100)
 
+    # Test method 2: using test case found online(http://people.sc.fsu.edu/~jburkardt/datasets/knapsack_01/knapsack_01.html)
+    # getTestData(weightsFileName, valuesFileName,resultFileName,capFileName)
+    # Example: test.getTestData("p01_w.txt","p01_v.txt","p01_s.txt","p01_c.txt")
+    # Test file has ending: weights: "_w.txt", values/profits: "_p.txt",
+    #                       selected items: "_s.txt", max capacity: "_c.txt"
+
+    data = test.getTestData("test_case/p08_w.txt","test_case/p08_p.txt","test_case/p08_s.txt","test_case/p08_c.txt")
+    Weights = data[0]
+    Values = data[1]
+    Results = data[2]
+    W = data[3] #
+
+    print("=======================================")
     print("Weights={}, Values={}, W={}".format(Weights,Values,W))
+    print("Expected result's selected item: {}".format(Results))
+    print("=======================================")
 
-    # brute force:
-    bf = bruteforce.Knapsack_bf(Weights, Values, W);
-    td = topdown.Knapsack_topdown(Weights, Values, W);
-    bu = bottom_up.Knapsack_bottomup(Weights, Values, W);
-
-################################
-# n : array lengths that will be generatedself.
-# start, end: random number's range
-# generating arrays of weights and values of random int of length n:
-def generateData(n, start, end):
-    print("Generating data of length: {}, start={}, end={} ".format(n,start,end))
-    arr = [];
-    for x in range(n):
-        arr.append(random.randint(start,end))
-
-    return arr
+    # Calling implemented functions:
+    bf = bruteforce.knapsack_brute_force(Weights, Values, W);
+    # td = topdown.Knapsack_topdown(Weights, Values, W);
+    bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
 
 
-
-
+#main
 if __name__ == '__main__':
     main()
