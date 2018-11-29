@@ -1,6 +1,6 @@
 import random
-import bruteforce as bruteforce;
-import bottomup as bottom_up;
+import bruteforce as bruteforce
+import bottomup as bottom_up
 import topdown as topdown
 import test as test
 
@@ -28,9 +28,9 @@ def main():
     print("=======================================")
 
     # Calling implemented functions:
-    bf = bruteforce.knapsack_brute_force(Weights, Values, W);
-    # td = topdown.Knapsack_topdown(Weights, Values, W);
-    bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
+    #bf = bruteforce.knapsack_brute_force(Weights, Values, W)
+    print(topdown.Knapsack_topdown_dp(Weights, Values, W))
+    #bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W)
 
 
 #main

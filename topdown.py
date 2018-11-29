@@ -1,40 +1,24 @@
 def Knapsack_topdown_dp(weights, values, W):
     print("===> Doing knapsack top down method....")
+    
     n = len(weights)
-    #dptable =[[0]*(n+1)]*(W+1)
     dptable =[[0 for x in range(n+1)] for y in range(W+1)]
     x = topdown_dp_util(weights, values, W, n, 0, dptable)
-    #print(dptable)
-    #for i in range(len(dptable)):
-     #   print(dptable[i])
-    i=W
-    j=n
-    print(dptable[W][n])
-    print(weights[n-j])
-    print(dptable[i-weights[n-j]][j-1])
-    while(i>0 and j>0):
-        print(dptable[i-weights[n-j]][j-1])
 
-        if(dptable[i][j] == dptable[j-weights[n-j]][i-1] + weights[n-j]):
-            print(n-j)
-            j = j - 1
-            i = i-weights[n-i]
-        else:
-            j = j-1
-    return x
+    optimalset = bactracking(weights, values, dptable,n)
+
+    return optimalset
 
 
 def topdown_dp_util(weights, values, remainingWeight, n, currentItem, dptable):
-    
+    remainingItems = n - currentItem
+    maxvalue = 0
+
     if(currentItem >= n or remainingWeight <= 0):
         return 0
 
-    remainingItems = n - currentItem
     if(dptable[remainingWeight][remainingItems] != 0 ):
-        print('found dp(', remainingWeight, remainingItems, ') = ', dptable[remainingWeight][remainingItems])
         return dptable[remainingWeight][remainingItems]
-
-    maxvalue = 0
 
     if(remainingWeight < weights[currentItem]):
         maxvalue = topdown_dp_util(weights, values, remainingWeight, n, currentItem + 1, dptable)
@@ -45,10 +29,32 @@ def topdown_dp_util(weights, values, remainingWeight, n, currentItem, dptable):
 
     return maxvalue
 
+def bactracking(weights, values, dptable,n):
+    i=len(dptable)-1
+    j=n
+    optimalset = []
+    
+    while(i>0 and j>0):
+        if(dptable[i][j] == dptable[i][j-1]):
+            j = j-1
+        else:
+            optimalset.append(n-j)
+            
+            i = i-weights[n-j]
+            j = j - 1
+    '''    
+    sum = 0
+    for k in range(len(optimalset)):
+        sum = sum + values[optimalset[k]]
+    print('sum', sum)'''
+    return optimalset
+
 if __name__ == '__main__':
     
-    weights = [23, 31, 29, 44, 53, 38, 63, 85, 89, 82, ]
-    values = [92, 57, 49, 68, 60, 43, 67, 84, 87, 72]
+    weights = [23,31,29,44,53,38,63,85,89,82]
+    values = [92,57,49,68,60,43,67,84,87,72]
+    #weights = [2, 2, 4, 5]
+    #values = [2, 4, 6, 9]
     W = 165
 
     print('answer:', Knapsack_topdown_dp(weights, values, W))
