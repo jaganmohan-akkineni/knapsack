@@ -12,10 +12,15 @@ def getTestData(weightsFileName, valuesFileName,resultFileName,capFileName):
     return(wList, vList, rList, W[0])
 
 
+
+
+
+
+
 ################################
 # n : array lengths that will be generatedself.
 # start, end: random number's range
-# generating arrays of weights and values of random int of length n:
+# Generate Arrays of random int w/ length n:
 def generateData(n, start, end):
     print("Generating data of length: {}, start={}, end={} ".format(n,start,end))
     arr = [];

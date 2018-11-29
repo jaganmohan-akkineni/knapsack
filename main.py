@@ -16,7 +16,7 @@ def main():
     # Test file has ending: weights: "_w.txt", values/profits: "_p.txt",
     #                       selected items: "_s.txt", max capacity: "_c.txt"
 
-    data = test.getTestData("test_case/p08_w.txt","test_case/p08_p.txt","test_case/p08_s.txt","test_case/p08_c.txt")
+    data = test.getTestData("test_case/p01_w.txt","test_case/p01_p.txt","test_case/p01_s.txt","test_case/p01_c.txt")
     Weights = data[0]
     Values = data[1]
     Results = data[2]
@@ -29,8 +29,8 @@ def main():
 
     # Calling implemented functions:
     #bf = bruteforce.knapsack_brute_force(Weights, Values, W)
-    print(topdown.Knapsack_topdown_dp(Weights, Values, W))
     #bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W)
+    td = topdown.knapsack_topdown_dp(Weights, Values, W)
 
 
 #main
