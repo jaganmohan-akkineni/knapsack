@@ -1,13 +1,20 @@
+import time
+
 def knapsack_top_down_dp(weights, values, W):
     print("===> Doing knapsack top down method....")
 
     n = len(weights)
     dptable =[[0 for x in range(n+1)] for y in range(W+1)]
+    
+    start = time.time()
     x = topdown_dp_util(weights, values, W, n, 0, dptable)
-
     optimalset = bactracking(weights, values, dptable,n)
+    end = time.time()
+    durationSeconds = (end-start)*1000
+
+
     print(optimalset)
-    return optimalset
+    return optimalset, durationSeconds
 
 
 def topdown_dp_util(weights, values, remainingWeight, n, currentItem, dptable):
