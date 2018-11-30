@@ -1,21 +1,6 @@
 import random
 
 
-################################
-# read files for: weight, value, result, capcity:
-# return tuples: (weights array, value array, selected item array, max capacity value)
-################################
-def getTestData(weightsFileName, valuesFileName,resultFileName,capFileName):
-    print("Get test data from: ", weightsFileName, valuesFileName,resultFileName,capFileName)
-    wList = readDataAsList(weightsFileName)
-    vList = readDataAsList(valuesFileName)
-    rList = readDataAsList(resultFileName)
-    W = readDataAsList(capFileName)
-    return(wList, vList, rList, W[0])
-
-
-
-
 
 
 
