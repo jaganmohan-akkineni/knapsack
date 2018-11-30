@@ -17,7 +17,8 @@ def runExperiments():
     print("======> Running Experiments...")
     #Generate randome int array for weights and values
     # array's len = 10, random int from [start, end], capacity W random
-    n = 10; start=10; end=100
+    # TODO: create an array of n, then loop thru each n
+    n = 10; start=10; end=100;
     Weights = utils.generateData(n, start, end)
     Values = utils.generateData(n, start, end)
 
@@ -25,26 +26,20 @@ def runExperiments():
     print("Weights={}, Values={}".format(Weights,Values))
     # run this 100 times:
     for i in range(10):
-
         W = random.randint(start,end)
-
         print("W={}".format(W))
 
         # Calling bruteforce:
-        bf = bruteforce.knapsack_brute_force(Weights, Values, W)
-        # print("BruteForce optimalSet={}, duration(ms)={}".format(bf[0], bf[1]))
-        fileName = "experiments/"+str(n)+"n_varried_W.csv"
+        bf = bruteforce.knapsack_brute_force(Weights, Values, W);
 
         # Calling bottom up:
-        bu = bottomup.knapsack_bottom_up_dp(Weights, Values, W)
-        # print("BruteForce optimalSet={}, duration(ms)={}".format(bf[0], bf[1]))
-        fileName = "experiments/"+str(n)+"n_varried_W.csv"
+        bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
 
         # Calling top down:
         # td = topdown.knapsack_top_down_dp(Weights, Values, W);
-        # print("TopDown optimalSet={}, duration(ms)={}".format(bf[0], bf[1]))
 
         # data[capacity, n, bruteforce time, bottom up time, topdown time]
+        fileName = "experiments/"+str(n)+"n_varried_W.csv"
         data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % 0.0]
         # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
         writeToFile(fileName, data) # recording the time it takes.
@@ -52,7 +47,7 @@ def runExperiments():
 #fixed W, varied n
 def runExperiments2():
     Wlist = [50,100,500,1000]
-    
+
     for i in range(len(Wlist)):
         for j in range(5,21):
             start = 10
@@ -70,12 +65,11 @@ def runExperiments2():
             data = [str(Wlist[i]), str(j), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
             # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
             writeToFile(fileName, data) # recording the time it takes.
-            
+
 
 
 
 # Append or create a file:
-# Save data to file, csv: W, n, time
 # example: "experiments/10n_varried_W.txt" for n=10
 def writeToFile(fileName, data):
     exists = os.path.isfile(fileName)
