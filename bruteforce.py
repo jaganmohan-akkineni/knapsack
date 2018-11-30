@@ -15,11 +15,11 @@ def knapsack_brute_force(weights, values, W):
     start = time.time() # in sec
     result = doBruteForce(weights, values,W, S);
     end = time.time()
-    durationSeconds = (end-start)*1000
+    duration = (end-start)*1000 # to milli
     #result is a tuple of (selection array, totalValue, totalWeight)
-    print("\n BruteForce: Max values={}, items={}, duration(seconds)={}".format(result[1], result[0], durationSeconds))
+    print("\n BruteForce: Max values={}, items={}, duration(ms)={}".format(result[1], result[0], duration))
 
-    return (result[0], durationSeconds);
+    return (result[0], duration);
 
 # do brute force:
 def doBruteForce(weights, values,W, S):
