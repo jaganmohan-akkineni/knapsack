@@ -9,8 +9,8 @@ def main():
     # Test method 1: generate random data:
     # Weights =  generateData(5, 1,10)
     # Values = generateData(5, 10, 100)
-    runTestCase();
-    # runExperiments();
+    # runTestCase();
+    runExperiments();
 
 #############################################
 # EXPERIMENTS
@@ -36,17 +36,18 @@ def runExperiments():
 
         # Calling bruteforce:
         bf = bruteforce.knapsack_brute_force(Weights, Values, W);
-        print("Output from bottom up: ", getItemIdx(bu))
+        print("Output from brute force: ", getItemIdx(bf[0]))
         writeToFile(n, bf[1]) # recording the time it takes.
 
         # Calling bottom_up:
         bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
-        print("Output from bottom up: ", getItemIdx(bu))
+        print("Output from bottom up: ", getItemIdx(bu[0]))
         writeToFile(n, bu[1]) # recording the time it takes.
         print("=======================================")
 
-    # td = topdown.knapsack_top_down_dp(Weights, Values, W);
-    # print("Output from top down: ", getItemIdx(td))
+        # td = topdown.knapsack_top_down_dp(Weights, Values, W);
+        # print("Output from top down: ", getItemIdx(td))
+        # writeToFile()
 
 
 
