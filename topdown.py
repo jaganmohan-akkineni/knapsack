@@ -1,7 +1,7 @@
 import time
 
 def knapsack_top_down_dp(weights, values, W):
-    print("===> Doing knapsack top down method....")
+    #print("===> Doing knapsack top down method....")
 
     n = len(weights)
     dptable =[[0 for x in range(n+1)] for y in range(W+1)]
@@ -12,7 +12,7 @@ def knapsack_top_down_dp(weights, values, W):
     end = time.time()
     durationSeconds = (end-start)*1000
 
-    print(optimalset)
+    #print(optimalset)
     return optimalset, durationSeconds
 
 

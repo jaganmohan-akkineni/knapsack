@@ -49,20 +49,33 @@ def runExperiments2():
     Wlist = [50,100,500,1000]
 
     for i in range(len(Wlist)):
-        for j in range(5,21):
+        for j in range(5, 21):
             start = 10
             end = 100
             Weights = utils.generateData(j, start, end)
             Values = utils.generateData(j, start, end)
+            bf_runtime = 0
+            bu_runtime = 0
+            td_runtime = 0
 
-            bf = bruteforce.knapsack_brute_force(Weights, Values, Wlist[i])
-            bu = bottomup.knapsack_bottom_up_dp(Weights, Values, Wlist[i])
-            td = topdown.knapsack_top_down_dp(Weights, Values, Wlist[i])
+            #run each method for 10 times and then take average
+            for k in range(10):
+                bf = bruteforce.knapsack_brute_force(Weights, Values, Wlist[i])
+                bu = bottomup.knapsack_bottom_up_dp(Weights, Values, Wlist[i])
+                td = topdown.knapsack_top_down_dp(Weights, Values, Wlist[i])
 
-            fileName = "experiments/"+str(Wlist[i])+"W_varried_n.csv"
+                bf_runtime = bf_runtime + bf[1]
+                bu_runtime = bu_runtime + bu[1]
+                td_runtime = td_runtime + td[1]
+
+            bf_runtime = bf_runtime/10
+            bu_runtime = bu_runtime/10
+            td_runtime = td_runtime/10
+            #fileName = "experiments/TDvsBU_"+str(Wlist[i])+"W_varried_n.csv"
+            fileName = "experiments/ALL_W_varried_n.csv"
 
             # data[capacity, n, bruteforce time, bottom up time, topdown time]
-            data = [str(Wlist[i]), str(j), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
+            data = [str(Wlist[i]), str(j), "%.3f" % bf_runtime, "%.3f" % bu_runtime, "%.3f" % td_runtime]
             # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
             writeToFile(fileName, data) # recording the time it takes.
 
