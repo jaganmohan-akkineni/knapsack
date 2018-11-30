@@ -1,3 +1,5 @@
+import random
+
 
 ################################
 # read files for: weight, value, result, capcity:
@@ -22,7 +24,7 @@ def getTestData(weightsFileName, valuesFileName,resultFileName,capFileName):
 # start, end: random number's range
 # Generate Arrays of random int w/ length n:
 def generateData(n, start, end):
-    print("Generating data of length: {}, start={}, end={} ".format(n,start,end))
+    # print("Generating data of length: {}, random int from: [{},{}] ".format(n,start,end))
     arr = [];
     for x in range(n):
         arr.append(random.randint(start,end))

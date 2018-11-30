@@ -13,9 +13,10 @@ def knapsack_bottom_up_dp(weights, values, W):
     S = doBottomUp(weights,values,W,S)
     result = backtracking(S, weights)
     end = time.time()
+    durationSeconds = (end-start)*1000
 
-    print("\n Bottom-up : Max values={}, items={}, duration(seconds)={}".format(S[n][W], result,(end-start)*1000))
-    return result;
+    print("\n Bottom-up : Max values={}, items={}, durationSeconds(seconds)={}".format(S[n][W], result,durationSeconds))
+    return (result, durationSeconds)
 #####################################
 # Calculating the 2d matrix S for max value
 # within the capacity W

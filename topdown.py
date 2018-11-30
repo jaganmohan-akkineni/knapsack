@@ -1,6 +1,6 @@
-def knapsack_topdown_dp(weights, values, W):
+def knapsack_top_down_dp(weights, values, W):
     print("===> Doing knapsack top down method....")
-    
+
     n = len(weights)
     dptable =[[0 for x in range(n+1)] for y in range(W+1)]
     x = topdown_dp_util(weights, values, W, n, 0, dptable)
@@ -33,16 +33,16 @@ def bactracking(weights, values, dptable,n):
     i=len(dptable)-1
     j=n
     optimalset = []
-    
+
     while(i>0 and j>0):
         if(dptable[i][j] == dptable[i][j-1]):
             j = j-1
         else:
             optimalset.append(n-j)
-            
+
             i = i-weights[n-j]
             j = j - 1
-    '''    
+    '''
     sum = 0
     for k in range(len(optimalset)):
         sum = sum + values[optimalset[k]]
@@ -50,7 +50,7 @@ def bactracking(weights, values, dptable,n):
     return optimalset
 '''
 if __name__ == '__main__':
-    
+
     weights = [23,31,29,44,53,38,63,85,89,82]
     values = [92,57,49,68,60,43,67,84,87,72]
     #weights = [2, 2, 4, 5]
