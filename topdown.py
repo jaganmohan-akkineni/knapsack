@@ -32,13 +32,13 @@ def topdown_dp_util(weights, values, remainingWeight, n, currentItem, dptable):
 def bactracking(weights, values, dptable,n):
     i=len(dptable)-1
     j=n
-    optimalset = []
-    
+    optimalset = [0] * n
+
     while(i>0 and j>0):
         if(dptable[i][j] == dptable[i][j-1]):
             j = j-1
         else:
-            optimalset.append(n-j)
+            optimalset[n-j] = 1
             
             i = i-weights[n-j]
             j = j - 1
