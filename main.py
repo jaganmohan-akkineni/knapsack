@@ -20,14 +20,14 @@ def runExperiments():
     print("======> Running Experiments...")
     #Generate randome int array for weights and values
     # array's len = 10, random int from [start, end], capacity W random
-    n = 20; start=10; end=100;
+    n = 10; start=10; end=100;
     Weights = test.generateData(n, start, end)
     Values = test.generateData(n, start, end)
 
     print("=======================================")
     print("Weights={}, Values={}".format(Weights,Values))
     # run this 100 times:
-    for i in range(25):
+    for i in range(10):
 
         W = random.randint(start,end)
 
@@ -37,13 +37,14 @@ def runExperiments():
         # Calling bruteforce:
         bf = bruteforce.knapsack_brute_force(Weights, Values, W);
         print("Output from brute force: ", getItemIdx(bf[0]))
-        writeToFile(n, bf[1]) # recording the time it takes.
+        fileName = "experiments/"+str(n)+"n_varried_W.txt"
+        writeToFile(fileName, n, bf[1]) # recording the time it takes.
 
         # Calling bottom_up:
-        bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
-        print("Output from bottom up: ", getItemIdx(bu[0]))
-        writeToFile(n, bu[1]) # recording the time it takes.
-        print("=======================================")
+        # bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
+        # print("Output from bottom up: ", getItemIdx(bu[0]))
+        # writeToFile(n, bu[1]) # recording the time it takes.
+        # print("=======================================")
 
         # td = topdown.knapsack_top_down_dp(Weights, Values, W);
         # print("Output from top down: ", getItemIdx(td))
@@ -54,8 +55,7 @@ def runExperiments():
 # Append or create a file:
 # Save data to file,
 # example: "experiments/10n_varried_W.txt" for n=10
-def writeToFile(n, data):
-    fileName = "experiments/"+str(n)+"n_varried_W.txt"
+def writeToFile(fileName, n, data):
     f = open(fileName, "a")
     f.write(str("%.3f" % data) + "\n")
 
