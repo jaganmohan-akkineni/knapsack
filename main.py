@@ -1,12 +1,13 @@
 import random
 import os
 import bruteforce as bruteforce
-import bottomup as bottom_up
+import bottomup as bottomup
 import topdown as topdown
 import utils as utils
 
 def main():
-    runExperiments();
+    #runExperiments()
+    runExperiments2()
 
 #############################################
 # EXPERIMENTS
@@ -16,7 +17,7 @@ def runExperiments():
     print("======> Running Experiments...")
     #Generate randome int array for weights and values
     # array's len = 10, random int from [start, end], capacity W random
-    n = 10; start=10; end=100;
+    n = 10; start=10; end=100
     Weights = utils.generateData(n, start, end)
     Values = utils.generateData(n, start, end)
 
@@ -30,12 +31,12 @@ def runExperiments():
         print("W={}".format(W))
 
         # Calling bruteforce:
-        bf = bruteforce.knapsack_brute_force(Weights, Values, W);
+        bf = bruteforce.knapsack_brute_force(Weights, Values, W)
         # print("BruteForce optimalSet={}, duration(ms)={}".format(bf[0], bf[1]))
         fileName = "experiments/"+str(n)+"n_varried_W.csv"
 
         # Calling bottom up:
-        bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
+        bu = bottomup.knapsack_bottom_up_dp(Weights, Values, W)
         # print("BruteForce optimalSet={}, duration(ms)={}".format(bf[0], bf[1]))
         fileName = "experiments/"+str(n)+"n_varried_W.csv"
 
@@ -47,6 +48,29 @@ def runExperiments():
         data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % 0.0]
         # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
         writeToFile(fileName, data) # recording the time it takes.
+
+#fixed W, varied n
+def runExperiments2():
+    Wlist = [50,100,500,1000]
+    
+    for i in range(len(Wlist)):
+        for j in range(5,21):
+            start = 10
+            end = 100
+            Weights = utils.generateData(j, start, end)
+            Values = utils.generateData(j, start, end)
+
+            bf = bruteforce.knapsack_brute_force(Weights, Values, Wlist[i])
+            bu = bottomup.knapsack_bottom_up_dp(Weights, Values, Wlist[i])
+            td = topdown.knapsack_top_down_dp(Weights, Values, Wlist[i])
+
+            fileName = "experiments/"+str(Wlist[i])+"W_varried_n.csv"
+
+            # data[capacity, n, bruteforce time, bottom up time, topdown time]
+            data = [str(Wlist[i]), str(j), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
+            # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
+            writeToFile(fileName, data) # recording the time it takes.
+            
 
 
 
