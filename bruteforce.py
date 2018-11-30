@@ -13,16 +13,19 @@ def knapsack_brute_force(weights, values, W):
         S.append(-1);
 
     start = time.time() # in sec
-    result = doBruteForce(weights, values,W, S);
-    end = time.time()
-    durationSeconds = (end-start)*1000
-    #result is a tuple of (selection array, totalValue, totalWeight)
-    print("\n BruteForce: Max values={}, items={}, duration(seconds)={}".format(result[1], result[0], durationSeconds))
+    result = _doBruteForce(weights, values,W, S);
+    # print("\nBruteForce: booleanArr={}".format(result))
+    output = [] # get optimal set:
+    for i in range(len(result)):
+        if result[i] is 1:
+            output.append(i) #get index
 
-    return (result[0], durationSeconds);
+    end = time.time()
+    duration = (end-start)*1000 # to milli
+    return (output, duration);
 
 # do brute force:
-def doBruteForce(weights, values,W, S):
+def _doBruteForce(weights, values,W, S):
     n = len(weights);
     maxV = maxW = 0;
     selectedItems = [] # to keep the best combination so far
@@ -51,4 +54,4 @@ def doBruteForce(weights, values,W, S):
             maxW = totalW;
             selectedItems = S.copy();
 
-    return (selectedItems,maxV,maxW)
+    return selectedItems

@@ -10,17 +10,22 @@ def knapsack_bottom_up_dp(weights, values, W):
     S = [[0 for x in range(W+1)] for y in range(n+1)]
 
     start = time.time()
-    S = doBottomUp(weights,values,W,S)
-    result = backtracking(S, weights)
-    end = time.time()
-    durationSeconds = (end-start)*1000
+    S = _doBottomUp(weights,values,W,S)
+    result = _backtracking(S, weights)
+    # print("\nBottom up: booleanArr={}".format( result))
+    output = [] # get optimal set:
+    for i in range(len(result)):
+        if result[i] is 1:
+            output.append(i) #get index
 
-    print("\n Bottom-up : Max values={}, items={}, durationSeconds(seconds)={}".format(S[n][W], result,durationSeconds))
-    return (result, durationSeconds)
+    end = time.time()
+    duration = (end-start)*1000
+
+    return (output, duration)
 #####################################
 # Calculating the 2d matrix S for max value
 # within the capacity W
-def doBottomUp(weights, values, W, S):
+def _doBottomUp(weights, values, W, S):
     #use the copy of original arrays since we dont want to make any changes to original data
     wArray = weights.copy(); vArray = values.copy()
     wArray.insert(0,0); vArray.insert(0,0); # pad a 0 in the front
@@ -42,7 +47,7 @@ def doBottomUp(weights, values, W, S):
 # S: S is list of arrays of computed values
 # weights: original input weights array.
 ###############################
-def backtracking(S, weights):
+def _backtracking(S, weights):
     row = len(S)-1 # number of row should be len of S
     col = len(S[0])-1 # number of column is how many items in one of array in S
     R = []

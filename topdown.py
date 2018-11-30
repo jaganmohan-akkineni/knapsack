@@ -12,7 +12,6 @@ def knapsack_top_down_dp(weights, values, W):
     end = time.time()
     durationSeconds = (end-start)*1000
 
-
     print(optimalset)
     return optimalset, durationSeconds
 
