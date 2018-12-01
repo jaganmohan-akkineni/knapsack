@@ -6,43 +6,70 @@ import topdown as topdown
 import utils as utils
 
 def main():
-    #runExperiments()
-    runExperiments2()
+    runExperiments()
+    # runExperiments2()
 
 #############################################
 # EXPERIMENTS
 # Generate random data.
 # 1 - Fixed n, varried W:
 def runExperiments():
-    print("======> Running Experiments...")
-    #Generate randome int array for weights and values
-    # array's len = 10, random int from [start, end], capacity W random
-    # TODO: create an array of n, then loop thru each n
-    n = 10; start=10; end=100;
-    Weights = utils.generateData(n, start, end)
-    Values = utils.generateData(n, start, end)
+    print("=> Running Experiments: Fixed n, varried W")
+    nList=[5,10,14,15,20]
+    start=10; end=1000; #range of numbers in weight and value arrays
+    wList = [10,20,30,40,50,100,200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000]
 
     print("=======================================")
-    print("Weights={}, Values={}".format(Weights,Values))
-    # run this 100 times:
-    for i in range(10):
-        W = random.randint(start,end)
-        print("W={}".format(W))
+    # EXP with all 3 mthods:
+    for n in nList:
+        Weights = utils.generateData(n, start, end)
+        Values = utils.generateData(n, start, end)
+        print("All:n=",n)
+        # for each n, run thru varied W in wList:
+        for i in range(len(wList)):
+            W = wList[i]
+            bf_runtime = 0;bu_runtime = 0;td_runtime = 0
+            for k in range(10):
+                bf = bruteforce.knapsack_brute_force(Weights, Values, W);
+                bu = bottomup.knapsack_bottom_up_dp(Weights, Values, W);
+                td = topdown.knapsack_top_down_dp(Weights, Values, W);
+                bf_runtime = bf_runtime + bf[1]
+                bu_runtime = bu_runtime + bu[1]
+                td_runtime = td_runtime + td[1]
 
-        # Calling bruteforce:
-        bf = bruteforce.knapsack_brute_force(Weights, Values, W);
+            bf_runtime = bf_runtime/10
+            bu_runtime = bu_runtime/10
+            td_runtime = td_runtime/10
 
-        # Calling bottom up:
-        bu = bottom_up.knapsack_bottom_up_dp(Weights, Values, W);
+            # data[capacity, n, bruteforce time, bottom up time, topdown time]
+            fileName = "experiments/all_n_varried_W.csv"
+            data = [str(W), str(n), "%.3f"%bf_runtime, "%.3f"%bu_runtime, "%.3f"%td_runtime]
+            writeToFile(fileName, data) # recording the time it takes.
 
-        # Calling top down:
-        # td = topdown.knapsack_top_down_dp(Weights, Values, W);
+    # EXP: w/  bottom up vs top down, can increase n since no bruteforce
+    nList=[100,200,400,500]
+    # for each n, run thru varied W in wList:
+    for n in nList:
+        Weights = utils.generateData(n, start, end)
+        Values = utils.generateData(n, start, end)
+        print("BUTD:n=",n)
+        for i in range(len(wList)):
+            W = wList[i]
+            bf_runtime = 0;bu_runtime = 0;td_runtime = 0
+            #run each method for 10 times and then take average
+            for k in range(10):
+                bu = bottomup.knapsack_bottom_up_dp(Weights, Values, W);
+                td = topdown.knapsack_top_down_dp(Weights, Values, W);
+                bu_runtime = bu_runtime + bu[1]
+                td_runtime = td_runtime + td[1]
 
-        # data[capacity, n, bruteforce time, bottom up time, topdown time]
-        fileName = "experiments/"+str(n)+"n_varried_W.csv"
-        data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % 0.0]
-        # data = [str(W), str(n), "%.3f" % bf[1], "%.3f" % bu[1], "%.3f" % td[1]]
-        writeToFile(fileName, data) # recording the time it takes.
+            bu_runtime = bu_runtime/10
+            td_runtime = td_runtime/10
+
+            # data[capacity, n, bruteforce time, bottom up time, topdown time]
+            fileName = "experiments/dp_n_varried_W.csv"
+            data = [str(W), str(n), "%.3f"%0.0, "%.3f"%bu_runtime, "%.3f"%td_runtime]
+            writeToFile(fileName, data) # recording all data in csv.
 
 #fixed W, varied n
 def runExperiments2():
