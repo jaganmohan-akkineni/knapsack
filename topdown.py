@@ -38,13 +38,13 @@ def topdown_dp_util(weights, values, remainingWeight, n, currentItem, dptable):
 def bactracking(weights, values, dptable,n):
     i=len(dptable)-1
     j=n
-    optimalset = [0] * n
+    optimalset = []
 
     while(i>0 and j>0):
         if(dptable[i][j] == dptable[i][j-1]):
             j = j-1
         else:
-            optimalset[n-j] = 1
+            optimalset.append(n-j)
 
             i = i-weights[n-j]
             j = j - 1
@@ -54,7 +54,7 @@ def bactracking(weights, values, dptable,n):
         sum = sum + values[optimalset[k]]
     print('sum', sum)'''
     return optimalset
-'''
+
 if __name__ == '__main__':
 
     weights = [23,31,29,44,53,38,63,85,89,82]
@@ -63,5 +63,5 @@ if __name__ == '__main__':
     #values = [2, 4, 6, 9]
     W = 165
 
-    print('answer:', knapsack_topdown_dp(weights, values, W))
-'''
+    print('answer:', knapsack_top_down_dp(weights, values, W))
+
