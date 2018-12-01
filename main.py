@@ -47,7 +47,7 @@ def runExperiments():
             writeToFile(fileName, data) # recording the time it takes.
 
     # EXP: w/  bottom up vs top down, can increase n since no bruteforce
-    nList=[100,200,400,500]
+    nList=[20,100,200,400,500]
     # for each n, run thru varied W in wList:
     for n in nList:
         Weights = utils.generateData(n, start, end)
