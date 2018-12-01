@@ -6,8 +6,8 @@ import topdown as topdown
 import utils as utils
 
 def main():
-    runExperiments()
-    # runExperiments2()
+    #runExperiments()
+    runExperiments2()
 
 #############################################
 # EXPERIMENTS
